@@ -1,11 +1,21 @@
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12">
-      <h3>I'm in the AppComponent!</h3>
-      <hr />
-      <app-servers></app-servers>
-      <!--<div app-servers></div>-->
-      <!--<div class="app-servers"></div>-->
-    </div>
-  </div>
-</div>
+<app-header />
+
+<main>
+  <ul id="users">
+    @for (user of users; track user.id) {
+    <li>
+      <app-user
+        [user]="user"
+        [selected]="user.id === selectedUserId"
+        (select)="onSelectUser($event)"
+      />
+    </li>
+    }
+  </ul>
+
+  @if (selectedUser) {
+  <app-tasks [userId]="selectedUser.id" [name]="selectedUser.name" />
+  } @else {
+  <p id="fallback">Select a user to see their tasks!</p>
+  }
+</main>
